@@ -1,8 +1,14 @@
-import prisma from "../config/prisma";
-export const createMember = async (req, res) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteMember = exports.updateMember = exports.getMemberById = exports.getAllMembers = exports.createMember = void 0;
+const prisma_1 = __importDefault(require("../config/prisma"));
+const createMember = async (req, res) => {
     try {
         const { prefix, firstName, lastName, birthDate, gender, about } = req.body;
-        const member = await prisma.member.create({
+        const member = await prisma_1.default.member.create({
             data: {
                 prefix,
                 firstName,
@@ -18,18 +24,19 @@ export const createMember = async (req, res) => {
         res.status(500).json({ error: "Failed to create member" });
     }
 };
-export const getAllMembers = async (req, res) => {
+exports.createMember = createMember;
+const getAllMembers = async (req, res) => {
     try {
         const page = Number(req.query.page) || 1;
         const limit = Number(req.query.limit) || 10;
         const skip = (page - 1) * limit;
         const [members, total] = await Promise.all([
-            prisma.member.findMany({
+            prisma_1.default.member.findMany({
                 orderBy: { id: "asc" },
                 skip,
                 take: limit,
             }),
-            prisma.member.count(),
+            prisma_1.default.member.count(),
         ]);
         const totalPages = Math.ceil(total / limit);
         res.json({
@@ -48,10 +55,11 @@ export const getAllMembers = async (req, res) => {
         res.status(500).json({ error: "Failed to fetch members" });
     }
 };
-export const getMemberById = async (req, res) => {
+exports.getAllMembers = getAllMembers;
+const getMemberById = async (req, res) => {
     try {
         const id = Number(req.params.id);
-        const member = await prisma.member.findUnique({
+        const member = await prisma_1.default.member.findUnique({
             where: { id },
         });
         if (!member)
@@ -62,11 +70,12 @@ export const getMemberById = async (req, res) => {
         res.status(500).json({ error: "Failed to fetch member" });
     }
 };
-export const updateMember = async (req, res) => {
+exports.getMemberById = getMemberById;
+const updateMember = async (req, res) => {
     try {
         const id = Number(req.params.id);
         const { prefix, firstName, lastName, birthDate, gender, about } = req.body;
-        const updated = await prisma.member.update({
+        const updated = await prisma_1.default.member.update({
             where: { id },
             data: {
                 prefix,
@@ -83,10 +92,11 @@ export const updateMember = async (req, res) => {
         res.status(500).json({ error: "Failed to update member" });
     }
 };
-export const deleteMember = async (req, res) => {
+exports.updateMember = updateMember;
+const deleteMember = async (req, res) => {
     try {
         const id = Number(req.params.id);
-        await prisma.member.delete({ where: { id } });
+        await prisma_1.default.member.delete({ where: { id } });
         res.json({
             message: "Member deleted successfully",
         });
@@ -97,4 +107,5 @@ export const deleteMember = async (req, res) => {
         });
     }
 };
+exports.deleteMember = deleteMember;
 //# sourceMappingURL=memberControllers.js.map

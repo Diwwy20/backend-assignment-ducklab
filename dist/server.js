@@ -1,18 +1,23 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import morgan from "morgan";
-import memberRoutes from "./routes/memberRoutes";
-dotenv.config();
-const app = express();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const morgan_1 = __importDefault(require("morgan"));
+const memberRoutes_1 = __importDefault(require("./routes/memberRoutes"));
+dotenv_1.default.config();
+const app = (0, express_1.default)();
 const corsOptions = {
     origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
 };
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(morgan("dev"));
-app.use("/api/members", memberRoutes);
+app.use((0, cors_1.default)(corsOptions));
+app.use(express_1.default.json());
+app.use((0, morgan_1.default)("dev"));
+app.use("/api/members", memberRoutes_1.default);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port:${PORT}`);
