@@ -11,9 +11,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "isolatedModules": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true
+    "isolatedModules": true
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist"]

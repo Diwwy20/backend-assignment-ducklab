@@ -1,18 +1,10 @@
 import express from "express";
-import {
-  createMember,
-  getAllMembers,
-  getMemberById,
-  updateMember,
-  deleteMember,
-} from "../controllers/memberControllers";
-
+import { createMember, getAllMembers, getMemberById, updateMember, deleteMember, } from "../controllers/memberControllers";
 const router = express.Router();
-
 router.post("/", createMember);
 router.get("/", getAllMembers);
 router.get("/:id", getMemberById);
 router.put("/:id", updateMember);
 router.delete("/:id", deleteMember);
-
 export default router;
+//# sourceMappingURL=memberRoutes.js.map

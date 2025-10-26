@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import prisma from "../config/prisma.ts";
+import prisma from "../config/prisma";
 
 export const createMember = async (req: Request, res: Response) => {
   try {
